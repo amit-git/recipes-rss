@@ -101,7 +101,7 @@ project(':rss-edge') {
         compile 'org.json:json:20090211'
         compile 'com.netflix.karyon:karyon-extensions:1.0.2'
         compile files('/Users/ajoshi/oss/pytheas/pytheas-core/build/libs/pytheas-core-1.12-SNAPSHOT.jar')
-        runtime 'org.freemarker:freemarker:2.3.15'
+        compile 'org.freemarker:freemarker:2.3.15'
     }
 
     jar {

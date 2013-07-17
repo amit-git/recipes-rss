@@ -5,9 +5,6 @@ import com.netflix.recipes.rss.hystrix.AddRSSCommand;
 import com.netflix.recipes.rss.hystrix.DeleteRSSCommand;
 import com.netflix.recipes.rss.hystrix.GetRSSCommand;
 import com.sun.jersey.api.view.Viewable;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -33,26 +30,13 @@ public class FeedsResource {
 
         try {
             String responseString = future.get();
-
-            JSONArray subscriptions = new JSONArray();
-            final JSONObject jo = new JSONObject(responseString);
-            if (jo.has("subscriptions")) {
-                if (jo.get("subscriptions") instanceof JSONObject) {
-                    subscriptions.put(jo.get("subscriptions"));
-                } else {
-                    subscriptions = jo.getJSONArray("subscriptions");
-                }
-            }
-
-
             return Response.ok(responseString).build();
         } catch (InterruptedException e) {
             LOG.error("InterruptedException in fetching RSS Feeds");
         } catch (ExecutionException e) {
             LOG.error("ExecutionException in fetching RSS Feeds");
-        } catch (JSONException e) {
-            LOG.error("JSONException in fetching RSS Feeds", e);
         }
+
         return Response.ok().build();
     }
 
